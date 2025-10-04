@@ -381,7 +381,7 @@ async def test_parser(bank_name: str):
                 message="Parser test passed successfully",
                 rows=len(result_df),
                 columns=list(result_df.columns),
-                sample=result_df.head(5).to_dict(orient="records"),
+                sample=result_df.to_dict(orient="records"),
                 execution_time=stats.get('execution_time'),
                 memory_usage=stats.get('memory_usage')
             )

@@ -279,6 +279,8 @@ function handleCompletion(status) {
                 <li>📊 Benchmark its performance</li>
             </ul>
         `);
+// After line 281, add:
+setTimeout(() => { testParser(); }, 1000);
         
     } else {
         showStatus(statusDiv, `❌ Generation failed: ${status.error}`, 'error');
@@ -380,7 +382,7 @@ function displayTestResults(result, container) {
             📊 Rows: ${result.rows} | 📋 Columns: ${result.columns.join(', ')}<br>
             ${performanceInfo}
         </div>
-        <h4 style="margin-top: 20px; color: var(--text-primary);">📋 Sample Data (First 5 Rows)</h4>
+        <h4 style="margin-top: 20px; color: var(--text-primary);">📋 All Parsed Data (${result.rows} Rows)</h4>
         <div style="overflow-x: auto; margin-top: 10px;">
             <table>
                 <thead>
