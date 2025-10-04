@@ -4,13 +4,13 @@ import re
 
 def parse(pdf_path: str) -> pd.DataFrame:
     """
-    Parse ICICI bank statement PDF and return a pandas DataFrame with transaction data.
-    
-    Parameters:
+    Parse ICICI bank statement PDF and return a pandas DataFrame.
+
+    Args:
     pdf_path (str): Path to the PDF file.
-    
+
     Returns:
-    pd.DataFrame: DataFrame with transaction data.
+    pd.DataFrame: DataFrame containing transaction data.
     """
     transactions = []
     

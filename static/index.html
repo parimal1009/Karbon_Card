@@ -1,154 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 AI Bank Parser Agent</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🤖 AI Bank Parser Agent</h1>
+                <p class="subtitle">Automatically generate bank statement parsers using AI</p>
+                <div class="tech-badges">
+                    <span class="badge">FastAPI</span>
+                    <span class="badge">LangChain</span>
+                    <span class="badge">Groq</span>
+                    <span class="badge">HuggingFace</span>
                 </div>
-            </section>
+            </div>
+        </header>
 
-            <!-- Agent Results Section -->
-            <section class="card" id="resultsSection" style="display: none;">
+        <!-- Status Bar -->
+        <div class="status-bar" id="statusBar">
+            <div class="status-item">
+                <span class="status-label">Status:</span>
+                <span class="status-value" id="agentStatus">Idle</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Bank:</span>
+                <span class="status-value" id="currentBank">None</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Progress:</span>
+                <span class="status-value" id="progressPercent">0%</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Step 1: Upload Files -->
+            <section class="card">
                 <div class="card-header">
-                    <h2>Results & Analysis</h2>
+                    <h2>📁 Step 1: Upload Sample Files</h2>
                     <div class="card-actions">
-                        <button class="btn btn-secondary btn-sm" onclick="refreshResults()">
-                            Refresh
+                        <button class="btn btn-secondary btn-sm" onclick="validateSetup()">
+                            🔍 Validate Setup
                         </button>
                     </div>
                 </div>
                 
-                <!-- Results Grid -->
-                <div class="results-grid">
-                    <!-- Agent Autonomy Display -->
-                    <div class="result-card autonomy-card">
-                        <div class="result-header">
-                            <h3>Agent Autonomy (35%)</h3>
-                        </div>
-                        <div class="autonomy-content">
-                            <div class="autonomy-stats">
-                                <div class="stat-item">
-                                    <span class="stat-label">Iterations Used:</span>
-                                    <span class="stat-value" id="iterationsUsed">-/-</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Self-Corrections:</span>
-                                    <span class="stat-value" id="selfCorrections">-</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Success Rate:</span>
-                                    <span class="stat-value" id="autonomySuccess">-%</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Self-Correction History -->
-                            <div class="correction-history">
-                                <h4>Self-Correction Timeline</h4>
-                                <div class="timeline" id="correctionTimeline">
-                                    <!-- Timeline items populated by JavaScript -->
-                                </div>
-                            </div>
-                        </div>
+                <div class="form-group">
+                    <label for="bankName">Bank Name</label>
+                    <input type="text" id="bankName" placeholder="e.g., ICICI, SBI, HDFC" required>
+                    <small class="help-text">Enter the name of the bank for the statement parser</small>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pdfFile">Sample PDF Statement</label>
+                        <input type="file" id="pdfFile" accept=".pdf" required>
+                        <small class="help-text">Upload a sample bank statement PDF</small>
                     </div>
-
-                    <!-- Code Quality Display -->
-                    <div class="result-card quality-card">
-                        <div class="result-header">
-                            <h3>Code Quality (25%)</h3>
-                        </div>
-                        <div class="quality-content">
-                            <div class="quality-metrics">
-                                <div class="metric-item">
-                                    <span class="metric-label">Type Hints:</span>
-                                    <span class="metric-status" id="typeHints">-</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">Docstrings:</span>
-                                    <span class="metric-status" id="docstrings">-</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">Error Handling:</span>
-                                    <span class="metric-status" id="errorHandling">-</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-label">Code Structure:</span>
-                                    <span class="metric-status" id="codeStructure">-</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Architecture Display -->
-                    <div class="result-card architecture-card">
-                        <div class="result-header">
-                            <h3>Agent Architecture (20%)</h3>
-                        </div>
-                        <div class="architecture-content">
-                            <div class="agent-loop">
-                                <h4>Agent Loop Stages</h4>
-                                <div class="loop-stages" id="loopStages">
-                                    <div class="stage-item" data-stage="analyze">
-                                        <div class="stage-label">Analyze</div>
-                                        <div class="stage-status" id="analyzeStatus">-</div>
-                                    </div>
-                                    <div class="stage-item" data-stage="generate">
-                                        <div class="stage-label">Generate</div>
-                                        <div class="stage-status" id="generateStatus">-</div>
-                                    </div>
-                                    <div class="stage-item" data-stage="test">
-                                        <div class="stage-label">Test</div>
-                                        <div class="stage-status" id="testStatus">-</div>
-                                    </div>
-                                    <div class="stage-item" data-stage="fix">
-                                        <div class="stage-label">Fix</div>
-                                        <div class="stage-status" id="fixStatus">-</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Performance Demo -->
-                    <div class="result-card demo-card">
-                        <div class="result-header">
-                            <h3>Performance Demo (20%)</h3>
-                        </div>
-                        <div class="demo-content">
-                            <div class="performance-metrics">
-                                <div class="perf-metric">
-                                    <div class="perf-label">Total Time:</div>
-                                    <div class="perf-value" id="totalTime">-</div>
-                                </div>
-                                <div class="perf-metric">
-                                    <div class="perf-label">Memory Usage:</div>
-                                    <div class="perf-value" id="memoryUsage">-</div>
-                                </div>
-                                <div class="perf-metric">
-                                    <div class="perf-label">Rows Extracted:</div>
-                                    <div class="perf-value" id="rowsExtracted">-</div>
-                                </div>
-                                <div class="perf-metric">
-                                    <div class="perf-label">Schema Match:</div>
-                                    <div class="perf-value" id="schemaMatch">-</div>
-                                </div>
-                            </div>
-                            
-                            <!-- Demo Ready Badge -->
-                            <div class="demo-ready" id="demoReady" style="display: none;">
-                                <div class="ready-badge">
-                                    <span class="ready-text">Ready for Demo!</span>
-                                </div>
-                                <p class="ready-description">
-                                    Parser generated successfully with full autonomy. 
-                                    No manual intervention required.
-                                </p>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="csvFile">Expected CSV Output</label>
+                        <input type="file" id="csvFile" accept=".csv" required>
+                        <small class="help-text">Upload the expected CSV format</small>
                     </div>
                 </div>
                 
-                <!-- Summary Section -->
-                <div class="results-summary">
-                    <h3>Generation Summary</h3>
-                    <div class="summary-content" id="summaryContent">
-                        <!-- Summary populated by JavaScript -->
+                <button class="btn btn-primary" onclick="uploadFiles()">
+                    📤 Upload Files
+                </button>
+                <div id="uploadStatus" class="status-message"></div>
+            </section>
+
+            <!-- Step 2: Generate Parser -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>⚡ Step 2: Generate Parser</h2>
+                    <div class="card-actions">
+                        <button class="btn btn-secondary btn-sm" onclick="refreshStatus()">
+                            🔄 Refresh Status
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="maxIterations">Max Self-Correction Attempts</label>
+                    <input type="number" id="maxIterations" value="3" min="1" max="5">
+                    <small class="help-text">Number of times the agent will try to fix errors</small>
+                </div>
+                
+                <button class="btn btn-success" onclick="generateParser()" id="generateBtn">
+                    🚀 Generate Parser
+                </button>
+                <div id="generateStatus" class="status-message"></div>
+                
+                <!-- Progress Bar -->
+                <div class="progress-container" id="progressContainer" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">Initializing...</p>
+                    <div class="progress-details" id="progressDetails">
+                        <span id="iterationInfo"></span>
                     </div>
                 </div>
             </section>
 
-            <!-- Step 3: Download & Test -->
-{{ ... }}
+            <!-- Step 3: Results -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>✅ Step 3: Download & Test</h2>
+                    <div class="card-actions">
+                        <button class="btn btn-secondary btn-sm" onclick="listParsers()">
+                            📋 List All Parsers
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="downloadParser()" id="downloadBtn" disabled>
+                        💾 Download Parser
+                    </button>
+                    <button class="btn btn-secondary" onclick="testParser()" id="testBtn" disabled>
+                        🧪 Test Parser
+                    </button>
+                    <button class="btn btn-secondary" onclick="benchmarkParser()" id="benchmarkBtn" disabled>
+                        📊 Benchmark
+                    </button>
+                </div>
+                <div id="testResults" class="test-results"></div>
+            </section>
+
+            <!-- Advanced Section -->
+            <section class="card advanced-section">
+                <div class="card-header">
+                    <h2>🔧 Advanced Tools</h2>
+                    <button class="btn btn-ghost btn-sm" onclick="toggleAdvanced()">
+                        <span id="advancedToggle">Show</span>
+                    </button>
+                </div>
+                
+                <div class="advanced-content" id="advancedContent" style="display: none;">
+                    <div class="button-group">
+                        <button class="btn btn-outline" onclick="showValidation()">
+                            ✅ System Validation
+                        </button>
+                        <button class="btn btn-outline" onclick="showApiDocs()">
+                            📚 API Documentation
+                        </button>
+                        <button class="btn btn-outline" onclick="exportLogs()">
+                            📄 Export Logs
+                        </button>
+                    </div>
+                    
+                    <div id="advancedResults" class="advanced-results"></div>
+                </div>
+            </section>
+
+            <!-- Logs Section -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>📋 Agent Logs</h2>
+                    <div class="card-actions">
+                        <button class="btn btn-secondary btn-sm" onclick="refreshLogs()">
+                            🔄 Refresh
+                        </button>
+                        <button class="btn btn-secondary btn-sm" onclick="clearLogs()">
+                            🗑️ Clear
+                        </button>
+                        <button class="btn btn-secondary btn-sm" onclick="toggleAutoRefresh()">
+                            <span id="autoRefreshToggle">▶️ Auto</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="logs-container" id="logsContainer">
+                    <pre id="logsContent">Loading logs...</pre>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>Built with ❤️ for <strong>Karbon Card AI Challenge</strong></p>
+                <div class="footer-links">
+                    <a href="/docs" target="_blank">API Docs</a>
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                    <a href="#" onclick="showAbout()">About</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal for notifications -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Notification</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p id="loadingText">Processing...</p>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
