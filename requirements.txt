@@ -1,0 +1,41 @@
+# Core Dependencies
+fastapi
+uvicorn[standard]
+pydantic
+python-multipart
+
+# LangChain & AI
+langchain
+langchain-community
+langchain-groq
+langgraph
+langsmith
+
+# LLM Providers
+groq
+huggingface-hub
+
+# PDF Processing
+PyPDF2
+pdf2image
+pytesseract
+pdfplumber
+pypdf
+
+# Data Processing
+pandas
+numpy
+
+# Testing
+pytest
+pytest-asyncio
+pytest-cov
+
+# Utilities
+python-dotenv
+rich
+loguru
+
+# Web & File Handling
+aiofiles
+jinja2

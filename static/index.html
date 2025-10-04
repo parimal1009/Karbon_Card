@@ -1,0 +1,154 @@
+                </div>
+            </section>
+
+            <!-- Agent Results Section -->
+            <section class="card" id="resultsSection" style="display: none;">
+                <div class="card-header">
+                    <h2>Results & Analysis</h2>
+                    <div class="card-actions">
+                        <button class="btn btn-secondary btn-sm" onclick="refreshResults()">
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Results Grid -->
+                <div class="results-grid">
+                    <!-- Agent Autonomy Display -->
+                    <div class="result-card autonomy-card">
+                        <div class="result-header">
+                            <h3>Agent Autonomy (35%)</h3>
+                        </div>
+                        <div class="autonomy-content">
+                            <div class="autonomy-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Iterations Used:</span>
+                                    <span class="stat-value" id="iterationsUsed">-/-</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Self-Corrections:</span>
+                                    <span class="stat-value" id="selfCorrections">-</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Success Rate:</span>
+                                    <span class="stat-value" id="autonomySuccess">-%</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Self-Correction History -->
+                            <div class="correction-history">
+                                <h4>Self-Correction Timeline</h4>
+                                <div class="timeline" id="correctionTimeline">
+                                    <!-- Timeline items populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code Quality Display -->
+                    <div class="result-card quality-card">
+                        <div class="result-header">
+                            <h3>Code Quality (25%)</h3>
+                        </div>
+                        <div class="quality-content">
+                            <div class="quality-metrics">
+                                <div class="metric-item">
+                                    <span class="metric-label">Type Hints:</span>
+                                    <span class="metric-status" id="typeHints">-</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Docstrings:</span>
+                                    <span class="metric-status" id="docstrings">-</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Error Handling:</span>
+                                    <span class="metric-status" id="errorHandling">-</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Code Structure:</span>
+                                    <span class="metric-status" id="codeStructure">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Architecture Display -->
+                    <div class="result-card architecture-card">
+                        <div class="result-header">
+                            <h3>Agent Architecture (20%)</h3>
+                        </div>
+                        <div class="architecture-content">
+                            <div class="agent-loop">
+                                <h4>Agent Loop Stages</h4>
+                                <div class="loop-stages" id="loopStages">
+                                    <div class="stage-item" data-stage="analyze">
+                                        <div class="stage-label">Analyze</div>
+                                        <div class="stage-status" id="analyzeStatus">-</div>
+                                    </div>
+                                    <div class="stage-item" data-stage="generate">
+                                        <div class="stage-label">Generate</div>
+                                        <div class="stage-status" id="generateStatus">-</div>
+                                    </div>
+                                    <div class="stage-item" data-stage="test">
+                                        <div class="stage-label">Test</div>
+                                        <div class="stage-status" id="testStatus">-</div>
+                                    </div>
+                                    <div class="stage-item" data-stage="fix">
+                                        <div class="stage-label">Fix</div>
+                                        <div class="stage-status" id="fixStatus">-</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Demo -->
+                    <div class="result-card demo-card">
+                        <div class="result-header">
+                            <h3>Performance Demo (20%)</h3>
+                        </div>
+                        <div class="demo-content">
+                            <div class="performance-metrics">
+                                <div class="perf-metric">
+                                    <div class="perf-label">Total Time:</div>
+                                    <div class="perf-value" id="totalTime">-</div>
+                                </div>
+                                <div class="perf-metric">
+                                    <div class="perf-label">Memory Usage:</div>
+                                    <div class="perf-value" id="memoryUsage">-</div>
+                                </div>
+                                <div class="perf-metric">
+                                    <div class="perf-label">Rows Extracted:</div>
+                                    <div class="perf-value" id="rowsExtracted">-</div>
+                                </div>
+                                <div class="perf-metric">
+                                    <div class="perf-label">Schema Match:</div>
+                                    <div class="perf-value" id="schemaMatch">-</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Demo Ready Badge -->
+                            <div class="demo-ready" id="demoReady" style="display: none;">
+                                <div class="ready-badge">
+                                    <span class="ready-text">Ready for Demo!</span>
+                                </div>
+                                <p class="ready-description">
+                                    Parser generated successfully with full autonomy. 
+                                    No manual intervention required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Summary Section -->
+                <div class="results-summary">
+                    <h3>Generation Summary</h3>
+                    <div class="summary-content" id="summaryContent">
+                        <!-- Summary populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Download & Test -->
+{{ ... }}
